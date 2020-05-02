@@ -1,0 +1,19 @@
+############################
+#    PROGRAM PARAMETERS    #
+############################
+
+### Directories ###
+PROTDIR = "/home/ssamson/1.work_MFD/Docking3/00.proteins"
+LIGDIR = "/home/ssamson/1.work_MFD/Docking3/00.ligands"
+
+### Inputs ###
+## Proteins:
+1-Refs = "RecG" "MFDref_wOff" "MFDref_wOn" "MFDold_wOn" "MFDnew_wOn"
+2-ESKAPE = "ACIBA_nvir" "ACIBA_vir" "ECOLI_nvir" "ECOLI_vir" "KLEPN_nvir" "KLEPN_vir" "PSEAE" "SHIFL_nvir" "SHIFL_vir" "STAAU"
+3-BACER = "BACER_clnq" "BACER_nclnq"
+## Ligands:
+1-Basics = "ADP" "ATP"
+2-NewMeds = "NM31" "NM32" "NM34" "NM88" "NM102" "NM118"
+3-Aveugles = "molA" "molB" "molC"            
+4-Analogs = "NM007" "NM119" "NM120" "NM121" "NM122" "NM123" "NM124" "NM125"    
+
