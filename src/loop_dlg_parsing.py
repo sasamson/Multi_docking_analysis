@@ -68,7 +68,7 @@ def write_poses(lig, rot, dlgfile, ranks, subranks, runs):
 
 def dlg_nested_loop(inputs, rot, workdir):
     '''
-    Class initialisation: nested loops - adt
+    Nested loops - DLG file parsing 
     '''
     if os.path.isdir(workdir): 
         os.chdir(workdir)
@@ -89,28 +89,29 @@ def dlg_nested_loop(inputs, rot, workdir):
                     if not os.path.isfile(path + dlgfile):
                         print("[WARNING] DLG file is missing: '{}'".format(path + dlgfile))
                         warnings += 1
-                    else:
-                        os.chdir(path)
-                        #--- Complexe files directory ---#
-                        if not os.path.isdir(CPLXDIR):
-                            os.system("mkdir {}".format(CPLXDIR))
-                        else:
-                            os.system("rm -f {}/*".format(CPLXDIR))
-                        #--- Docked pose files directory ---#
-                        if not os.path.isdir(POSEDIR):
-                            os.system("mkdir {}".format(POSEDIR))
-                        else:
-                            os.system("rm -f {}/*".format(POSEDIR))
-                        #--- DLG file parsing ---#
-                        print("> DLG Parsing - DLG file found: '{}'".format(path + dlgfile))
-                        ranks, subranks, runs = parse_DLG_ranks(dlgfile, warnings)
-                        if not ranks or not subranks or not runs:
-                            print("[WARNING] DLG file parsing failed: '{}'".format(path + dlgfile))
-                            warnings += 1
-                        else:
-                            write_cplxes(radical, rec, dlgfile, ranks, subranks, runs)
-                            write_poses(lig, rot, dlgfile, ranks, subranks, runs)
+                        continue
 
-                        os.chdir("../../../../")
+                    os.chdir(path)
+                    #--- Complexe files directory ---#
+                    if not os.path.isdir(CPLXDIR):
+                        os.system("mkdir {}".format(CPLXDIR))
+                    else:
+                        os.system("rm -f {}/*".format(CPLXDIR))
+                    #--- Docked pose files directory ---#
+                    if not os.path.isdir(POSEDIR):
+                        os.system("mkdir {}".format(POSEDIR))
+                    else:
+                        os.system("rm -f {}/*".format(POSEDIR))
+                    #--- DLG file parsing ---#
+                    print("> DLG Parsing - DLG file found: '{}'".format(path + dlgfile))
+                    ranks, subranks, runs = parse_DLG_ranks(dlgfile, warnings)
+                    if not ranks or not subranks or not runs:
+                        print("[WARNING] DLG file parsing failed: '{}'".format(path + dlgfile))
+                        warnings += 1
+                        continue
+
+                    write_cplxes(radical, rec, dlgfile, ranks, subranks, runs)
+                    write_poses(lig, rot, dlgfile, ranks, subranks, runs)
+                    os.chdir("../../../../")
 
     print("WARNINGS = {}\n...".format(warnings))

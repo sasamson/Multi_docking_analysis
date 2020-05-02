@@ -86,7 +86,7 @@ class InputArguments(object):
         elif arguments['--complex']:
             self.option = "complex"
         elif arguments['--interact']:
-            self.option = "interacts"
+            self.option = "interact"
 
         infile = arguments['FILEPATH']
         if fun.check_path(infile) == "file" and infile.endswith(".txt"):

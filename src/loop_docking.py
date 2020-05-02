@@ -103,7 +103,7 @@ def run_docking(rec, rdir, lig, ldir, rot, gpf):
 
 def adt_nested_loops(inputs, rot, workdir):
     '''
-    Class initialisation: nested loops - adt
+    Nested loops - Run ADT4
     '''
     if os.path.isdir(workdir): 
         os.chdir(workdir)
