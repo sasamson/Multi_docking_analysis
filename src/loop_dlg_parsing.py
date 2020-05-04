@@ -72,7 +72,6 @@ def dlg_nested_loop(inputs, rot, workdir):
     '''
     if os.path.isdir(workdir): 
         os.chdir(workdir)
-        print("cd {}".format(workdir))
     else:
         raise err.WrongPathError("working directory (DLG parsing)", workdir)
 
@@ -113,5 +112,6 @@ def dlg_nested_loop(inputs, rot, workdir):
                     write_cplxes(radical, rec, dlgfile, ranks, subranks, runs)
                     write_poses(lig, rot, dlgfile, ranks, subranks, runs)
                     os.chdir("../../../../")
+                    print()
 
     print("WARNINGS = {}\n...".format(warnings))

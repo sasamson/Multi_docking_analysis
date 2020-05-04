@@ -5,23 +5,26 @@ ARGS = """
 
 Usage:
   multi-docking.py -h | --help | --version
-  multi-docking.py -D FILEPATH [-o OUTDIR/]
-  multi-docking.py -C FILEPATH [-o OUTDIR/]
-  multi-docking.py -I FILEPATH [-o OUTDIR/]
+  multi-docking.py -D FILEPATH BONDS_TYPE [-o OUTDIR/]
+  multi-docking.py -C FILEPATH BONDS_TYPE [-o OUTDIR/]
+  multi-docking.py -P FILEPATH BONDS_TYPE [-o OUTDIR/]
+  multi-docking.py -I FILEPATH BONDS_TYPE [-o OUTDIR/]
 
 Options:
   -h, --help      Show usage.
       --version   Show programme version.
   -D, --docking   Run AutoDockTools.
   -C, --complex   Parse dlg files into PLIP inputs.
-  -I, --interact  Run Protein-Ligand Interaction Profiler (PLIP).
+  -P, --plip      Run Protein-Ligand Interaction Profiler (PLIP).
+  -I, --interact  PLIP outputs parsing and interactions inventory.
 (Optional)
   -o, --outdir OUTDIR/  User defined outputs directory,
                         current directory by default.
 
 Arguments:
-  FILEPATH  Parameters file path (.txt).
-  OUTDIR/   Working directory path.
+  FILEPATH    Parameters file path (.txt).
+  BONDS_TYPE  Ligands bonds type: "free" or "fix".
+  OUTDIR/     Working directory path.
 
 #----------------------------------------------------------------#
 """
@@ -32,7 +35,7 @@ from docopt import docopt
 import modules.custom_excepts as err
 import modules.basic_functions as fun
 
-VERSION = "Multi-Docking with ADT4-PLIP 0.0"
+VERSION = "Multi-Docking with ADT4-PLIP 1.0"
 
 
 class InputArguments(object):
@@ -41,6 +44,7 @@ class InputArguments(object):
     """
     def __init__(self):
         self.option = None
+        self.bonds = None
         self.parsed_input = {}
         self.path_input = ""
         self.path_output = "./"
@@ -85,6 +89,8 @@ class InputArguments(object):
             self.option = "docking"
         elif arguments['--complex']:
             self.option = "complex"
+        elif arguments['--plip']:
+            self.option = "plip"
         elif arguments['--interact']:
             self.option = "interact"
 
@@ -94,6 +100,11 @@ class InputArguments(object):
             self.init_inpaths(infile)
         else:
             raise err.WrongPathError("parameters file", infile)
+
+        if arguments['BONDS_TYPE'] == "free" or arguments['BONDS_TYPE'] == "fix":
+            self.bonds = arguments['BONDS_TYPE']
+        else:
+            raise err.WrongBondError(bonds)
 
         outdir = arguments['--outdir']
         if outdir is not None:

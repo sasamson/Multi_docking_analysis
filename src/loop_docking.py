@@ -7,7 +7,7 @@ import modules.custom_excepts as err
 import modules.basic_functions as fun
 
 LOGDIR = "/home/ssamson/1.work_MFD/Docking3/LOG/"
-GPFDIR = "/home/ssamson/1.work_MFD/Docking3/GPF_ref/"
+GPFDIR = "/home/ssamson/1.work_MFD/Docking3/00.gpf_ref/"
 prepare_gpf4 = "/home/ssamson/0.scripts/ReposGit/Multi_docking_analysis/autodocktools/prepare_gpf4.py"
 prepare_dpf4 = "/home/ssamson/0.scripts/ReposGit/Multi_docking_analysis/autodocktools/prepare_dpf4.py"
 GA_RUN = 20
@@ -21,6 +21,8 @@ def check_dockpath(rec, rdir, lig, ldir, rot):
     path = rdir + "/" + rec + "/" + ldir + "/" + lig + "_" + rot
     if os.path.isdir(path):
         print("Directory exists: '{}'".format(path))
+        os.system("mv {} {}".format(rdir, "last_" + rdir))
+        os.makedirs(path)
     else:
         os.makedirs(path)
         print("Directory created: '{}'".format(path))
@@ -138,6 +140,7 @@ def adt_nested_loops(inputs, rot, workdir):
                         warnings += run_docking(rec, rdir, lig, ldir, rot, gpf)
                         os.chdir("../../../../")
                         print("----------------------------------------")
+                        print()
 
     print("WARNINGS = {}\n...".format(warnings))
 

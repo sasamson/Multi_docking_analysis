@@ -5,7 +5,7 @@ Basic functions
 import os
 import modules.custom_excepts as err
 
-RECs = ["1-Refs", "2-ESKAPE", "3-BACER"]
+RECs = ["test_1-Refs", "1-Refs", "2-ESKAPE", "3-BACER"]
 LIGs = ["1-Basics", "2-NewMeds", "3-Aveugles", "4-Analogs"]
 
 def check_path(path):

@@ -26,4 +26,11 @@ class InFileSyntaxError(customError):
     """
     def __init__(self, path, cpt, arg):
         self.message = "[ERROR] Syntax error in the input file: '{}'\nline {}:'{}'".format(path, cpt, arg)
+
+class ClassName(object):
+    """
+    Custom Excepttion: Wrong bonds type
+    """
+    def __init__(self, arg):
+        self.message = """[ERROR] Wrong bonds type, must be "free" or "fix": '{}'""".format(arg)
         

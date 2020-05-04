@@ -12,6 +12,7 @@ import modules.custom_excepts as err
 import src.loop_docking as dock
 import src.loop_dlg_parsing as dlg
 import src.loop_plip as plip
+import src.loop_interacts as bind
 
 
 def main():
@@ -22,11 +23,13 @@ def main():
         inputs = arg.InputArguments()
         inputs.init_arg()
         if inputs.option == "docking":
-            dock.adt_nested_loops(inputs.parsed_input, "free", inputs.path_output)
+            dock.adt_nested_loops(inputs.parsed_input, inputs.bonds, inputs.path_output)
         elif inputs.option == "complex":
-            dlg.dlg_nested_loop(inputs.parsed_input, "free", inputs.path_output)
+            dlg.dlg_nested_loop(inputs.parsed_input, inputs.bonds, inputs.path_output)
+        elif inputs.option == "plip":
+            plip.plip_nested_loop(inputs.parsed_input, inputs.bonds, inputs.path_output)
         elif inputs.option == "interact":
-            plip.plip_nested_loop(inputs.parsed_input, "free", inputs.path_output)
+            bind.interacts_nested_loop(inputs.parsed_input, inputs.bonds, inputs.path_output)
 
     except err.customError as e:
         print(e.message)
